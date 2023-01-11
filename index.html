@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+
+<body>
+  <h1>Tweets</h1>
+  <button type="button" onclick="getRequest()">Reload</button>
+  <ul id="last-tweets">
+  </ul>
+</body>
+
+<script>
+
+  function getRequest() {
+    const endpoint = 'http://localhost:3000/tweets'
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', endpoint);
+
+    xhr.onload = (e) => {
+      console.log(xhr.status);
+
+      if (xhr.status === 200)
+        // console.log(xhr.response);
+        listTweets(JSON.parse(xhr.response))
+    }
+    xhr.send();
+
+    function listTweets(tweets) {
+
+      const ul = document.getElementById('last-tweets')
+      ul.innerHTML = '';
+
+      for (let x = 0; x < 10; x++) {
+        const li = document.createElement('li');
+        li.innerText = `${tweets[x].text}`;
+        ul.appendChild(li)
+      }
+    }
+  }
+
+
+  getRequest()
+
+  setInterval(() => {
+    getRequest()
+  }, 360000)
+</script>
+
+</html>
