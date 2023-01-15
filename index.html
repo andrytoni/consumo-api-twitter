@@ -11,33 +11,56 @@
 
 <body>
   <h1>Tweets</h1>
-  <button type="button" onclick="getRequest()">Reload</button>
-  <ul id="last-tweets">
+  <form id="searchForm" action="/" method="get">
+    <input type="search" name="searchTweet" id="searchInput" placeholder="Buscar no Twitter">
+    <br>
+    <input type="radio" name="user" id="user" value="user">
+    <label for="user">User</label>
+    <input type="radio" name="images" id="images" value="has:images">
+    <label for="user">Images</label>
+    <input type="radio" name="videos" id="videos" value="has:videos">
+    <label for="user">Videos</label>
+    <br>
+    <button type="submit">Buscar</button>
+  </form>
+  <!-- <button type="button" onclick="getRequest()">Reload</button> -->
+  <ul id="twitter-response">
   </ul>
 </body>
 
 <script>
+  window.onload = function () {
+    document.getElementById('searchForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const query = event.target.searchTweet.value
+      console.log(event.target.user.value);
 
-  function getRequest() {
-    const endpoint = 'http://localhost:3000/tweets'
+      getRequest(query)
+
+    })
+  }
+
+  function getRequest(query) {
+    const endpoint = query == undefined ? 'http://localhost:3000/tweets' : 'http://localhost:3000/tweets' + '?' + 'searchTweet=' + query
     const xhr = new XMLHttpRequest();
+
     xhr.open('GET', endpoint);
 
     xhr.onload = (e) => {
-      console.log(xhr.status);
 
-      if (xhr.status === 200)
-        // console.log(xhr.response);
+      if (xhr.status === 200 && xhr.response && query != undefined) {
         listTweets(JSON.parse(xhr.response))
+      }
     }
+
     xhr.send();
 
     function listTweets(tweets) {
 
-      const ul = document.getElementById('last-tweets')
+      const ul = document.getElementById('twitter-response')
       ul.innerHTML = '';
 
-      for (let x = 0; x < 10; x++) {
+      for (let x = 0; x < tweets.length; x++) {
         const li = document.createElement('li');
         li.innerText = `${tweets[x].text}`;
         ul.appendChild(li)
@@ -48,9 +71,9 @@
 
   getRequest()
 
-  setInterval(() => {
-    getRequest()
-  }, 360000)
+  // setInterval(() => {
+  //   getRequest()
+  // }, 360000)
 </script>
 
 </html>
