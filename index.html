@@ -12,14 +12,16 @@
 <body>
   <h1>Tweets</h1>
   <form id="searchForm" action="/" method="get">
-    <input type="search" name="searchTweet" id="searchInput" placeholder="Buscar no Twitter">
+    <input type="search" name="searchQuery" id="searchInput" placeholder="Buscar no Twitter">
     <br>
-    <input type="radio" name="user" id="user" value="user">
+    <input type="radio" name="searchSelector" id="tweets" value="tweets">
+    <label for="tweets">Tweets</label>
+    <input type="radio" name="searchSelector" id="user" value="user">
     <label for="user">User</label>
-    <input type="radio" name="images" id="images" value="has:images">
-    <label for="user">Images</label>
-    <input type="radio" name="videos" id="videos" value="has:videos">
-    <label for="user">Videos</label>
+    <input type="radio" name="searchSelector" id="images" value="images">
+    <label for="images">Images</label>
+    <input type="radio" name="searchSelector" id="videos" value="videos">
+    <label for="videos">Videos</label>
     <br>
     <button type="submit">Buscar</button>
   </form>
@@ -29,51 +31,52 @@
 </body>
 
 <script>
-  window.onload = function () {
-    document.getElementById('searchForm').addEventListener('submit', function (event) {
-      event.preventDefault();
-      const query = event.target.searchTweet.value
-      console.log(event.target.user.value);
+  // window.onload = function () {
+  //   document.getElementById('searchForm').addEventListener('submit', function (event) {
+  //     event.preventDefault();
+  //     const query = event.target.searchQuery.value
+  //     console.log(event.target.user.value);
 
-      getRequest(query)
+  //     getRequest(query)
 
-    })
-  }
+  //   })
+  // }
 
-  function getRequest(query) {
-    const endpoint = query == undefined ? 'http://localhost:3000/tweets' : 'http://localhost:3000/tweets' + '?' + 'searchTweet=' + query
-    const xhr = new XMLHttpRequest();
+  // function getRequest(query) {
+  //   const endpoint = query == undefined ? 'http://localhost:3000/tweets' : 'http://localhost:3000/tweets' + '?' + 'searchQuery=' + query
+  //   const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', endpoint);
+  //   xhr.open('GET', endpoint);
 
-    xhr.onload = (e) => {
+  //   xhr.onload = (e) => {
 
-      if (xhr.status === 200 && xhr.response && query != undefined) {
-        listTweets(JSON.parse(xhr.response))
-      }
-    }
+  //     if (xhr.status === 200 && xhr.response && query != undefined) {
+  //       listTweets(JSON.parse(xhr.response))
+  //     }
+  //   }
 
-    xhr.send();
+  //   xhr.send();
 
-    function listTweets(tweets) {
+  //   function listTweets(tweets) {
 
-      const ul = document.getElementById('twitter-response')
-      ul.innerHTML = '';
+  //     const ul = document.getElementById('twitter-response')
+  //     ul.innerHTML = '';
 
-      for (let x = 0; x < tweets.length; x++) {
-        const li = document.createElement('li');
-        li.innerText = `${tweets[x].text}`;
-        ul.appendChild(li)
-      }
-    }
-  }
+  //     for (let x = 0; x < tweets.length; x++) {
+  //       const li = document.createElement('li');
+  //       li.innerText = `${tweets[x].text}`;
+  //       ul.appendChild(li)
+  //     }
+  //   }
+  // }
 
 
-  getRequest()
+  // getRequest()
 
   // setInterval(() => {
   //   getRequest()
   // }, 360000)
 </script>
+<script src="xhr.js" defer></script>
 
 </html>
