@@ -19,11 +19,11 @@ app.get('/tweets', async (req, res) => {
     response = await getTweets(req.query.searchQuery, req.query.type);
   }
 
-  if (!response?.data) {
-    res.json(nothingFound);
-  } else {
-    res.json(response.data);
-  }
+  // if (!response?.data) {
+  //   res.json(nothingFound);
+  // } else {
+  res.json(response);
+  // }
 });
 
 app.listen(3000, () => {

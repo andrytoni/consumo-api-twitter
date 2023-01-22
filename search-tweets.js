@@ -18,7 +18,7 @@ async function getTweets(query, type) {
   let params = {
     'query': queryString,
     'expansions': 'author_id,attachments.media_keys',
-    'tweet.fields': 'author_id,created_at',
+    'tweet.fields': 'author_id,created_at,public_metrics',
     'user.fields': 'location,username,profile_image_url',
     'media.fields': 'preview_image_url,url,type',
   };
@@ -31,6 +31,8 @@ async function getTweets(query, type) {
   });
 
   if (res.body) {
+    console.log(res.body.data);
+
     return res.body;
   } else {
     throw new Error('Unsuccessful request');
