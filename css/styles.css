@@ -4,27 +4,35 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-img {
+img,
+video {
   max-width: 100%;
+}
+
+.hidden-class {
+  display: none;
 }
 
 #twitter {
   font-family: 'Fredoka One', cursive;
   text-align: center;
 }
+
 #searchForm {
   text-align: center;
 }
+
 #searchInput {
   width: 22%;
   border-radius: 8px;
 }
 
-#searchSelector {
-  /* font-size: 13px; */
+#response-body {
+  justify-content: right;
 }
 
 .twitter-wrap {
+  display: block;
   max-width: 550px;
   background: #fff;
   margin: 0 auto;
@@ -54,6 +62,7 @@ img {
 }
 
 .tweet-header-info span {
+  margin-left: 3px;
   color: #657786;
   font-weight: normal;
 }
@@ -63,8 +72,17 @@ img {
   margin-top: 5px;
 }
 
-.tweet-img-wrap {
+.tweet-media-wrap {
   padding-left: 60px;
+}
+
+.tweet-img {
+  border-radius: 10px;
+}
+
+.tweet-video {
+  border-radius: 10px;
+  max-height: 504px;
 }
 
 .tweet-info-counts {
@@ -74,13 +92,39 @@ img {
 }
 
 .tweet-info-counts div {
+  color: #657786;
+
   display: flex;
   margin-right: 20px;
 }
 
-.tweet-info-counts div svg {
+.tweet-info-counts div i {
+  font-size: medium;
   color: #657786;
   margin-right: 10px;
+}
+
+.fa-retweet:hover {
+  color: rgb(40, 203, 40);
+}
+
+.fa-comment:hover,
+.fa-eye:hover {
+  color: blue;
+}
+
+.fa-heart:hover {
+  color: red;
+}
+
+.nothing-found {
+  text-align: center;
+}
+
+.nothing-found-text {
+  line-height: 0%;
+  font-size: 30px;
+  font-weight: bolder;
 }
 
 @media screen and (max-width: 430px) {
